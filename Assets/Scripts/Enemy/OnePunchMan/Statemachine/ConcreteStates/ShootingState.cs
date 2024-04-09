@@ -16,7 +16,6 @@ namespace Assets.Scripts.Enemy.OnePunchMan.Statemachine.ConcreteStates
     {
         public OnePunchManController Owner { get; set; }
         private OnePunchManStateMachine stateMachine;
-        private Quaternion desiredRotation;
         private PlayerController target;
         private float shootTimer;
 
@@ -24,37 +23,29 @@ namespace Assets.Scripts.Enemy.OnePunchMan.Statemachine.ConcreteStates
 
         public void OnStateEnter()
         {
-            shootTimer = Owner.enemyScriptableObject.RateOfFire;
-            target = Owner.target;
-        }
-
-        public void OnStateExit()
-        {
+            SetTarget();
             shootTimer = 0;
         }
 
         public void Update()
         {
-            desiredRotation = CalculateRotationTowardsPlayer();
-            SetRotation(RotateTowards(desiredRotation));
+            Quaternion desiredRotation = CalculateRotationTowardsPlayer();
+            Owner.SetRotation(RotateTowards(desiredRotation));
 
-            if (IsFacingPlayer(desiredRotation))
+            if (IsRotationComplete(desiredRotation))
             {
                 shootTimer -= Time.deltaTime;
                 if (shootTimer <= 0)
                 {
-                    shootTimer = Owner.enemyScriptableObject.RateOfFire;
-                    Shoot();
+                    ResetTimer();
+                    Owner.Shoot();
                 }
             }
         }
 
-        public void Shoot()
-        {
-            Owner.enemyView.PlayShootingEffect();
-            GameService.Instance.SoundService.PlaySoundEffects(SoundType.ENEMY_SHOOT);
-            BulletController bullet = new BulletController(Owner.enemyView.transform, Owner.enemyScriptableObject.BulletData);
-        }
+        public void OnStateExit() => target = null;
+
+        private void SetTarget() => target = GameService.Instance.PlayerService.GetPlayer();
 
         private Quaternion CalculateRotationTowardsPlayer()
         {
@@ -63,11 +54,10 @@ namespace Assets.Scripts.Enemy.OnePunchMan.Statemachine.ConcreteStates
             return Quaternion.LookRotation(directionToPlayer, Vector3.up);
         }
 
-        private Quaternion RotateTowards(Quaternion desiredRotation) => Quaternion.LerpUnclamped(Owner.Rotation, desiredRotation, Owner.enemyScriptableObject.RotationSpeed / 30 * Time.deltaTime);
+        private Quaternion RotateTowards(Quaternion desiredRotation) => Quaternion.LerpUnclamped(Owner.Rotation, desiredRotation, Owner.Data.RotationSpeed / 30 * Time.deltaTime);
 
-        public void SetRotation(Quaternion desiredRotation) => Owner.enemyView.transform.rotation = desiredRotation;
+        private bool IsRotationComplete(Quaternion desiredRotation) => Quaternion.Angle(Owner.Rotation, desiredRotation) < Owner.Data.RotationThreshold;
 
-        private bool IsFacingPlayer(Quaternion desiredRotation) => Quaternion.Angle(Owner.Rotation, desiredRotation) < Owner.Data.RotationThreshold;
-
+        private void ResetTimer() => shootTimer = Owner.Data.RateOfFire;
     }
 }
