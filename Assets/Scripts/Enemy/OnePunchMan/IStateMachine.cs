@@ -9,6 +9,6 @@ namespace Assets.Scripts.Enemy.OnePunchMan
 {
     public interface IStateMachine
     {
-        public void ChangeState(States newState);
+        public void ChangeState(StatePattern.Enemy.States newState);
     }
 }

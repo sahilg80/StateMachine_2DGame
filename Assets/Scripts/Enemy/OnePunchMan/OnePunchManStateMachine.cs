@@ -1,8 +1,10 @@
+using Assets.Scripts.Enemy.OnePunchMan;
+using Assets.Scripts.Enemy.OnePunchMan.States;
 using System.Collections.Generic;
 
 namespace StatePattern.Enemy
 {
-    public class OnePunchManStateMachine
+    public class OnePunchManStateMachine : IStateMachine
     {
         private OnePunchManController Owner;
         private IState currentState;
@@ -20,6 +22,7 @@ namespace StatePattern.Enemy
             States.Add(Enemy.States.IDLE, new IdleState(this));
             States.Add(Enemy.States.ROTATING, new RotatingState(this));
             States.Add(Enemy.States.SHOOTING, new ShootingState(this));
+            States.Add(Enemy.States.CHASING, new ChasingState(this));
         }
 
         private void SetOwner()
