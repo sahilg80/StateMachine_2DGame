@@ -1,0 +1,32 @@
+﻿using StatePattern.Enemy;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using UnityEngine;
+
+namespace Assets.Scripts.Enemy.OnePunchMan.Statemachine.ConcreteStates
+{
+    public class IdleState : IState
+    {
+        public OnePunchManController Owner { get; set; }
+        private OnePunchManStateMachine stateMachine;
+        private float timer;
+
+        public IdleState(OnePunchManStateMachine stateMachine) => this.stateMachine = stateMachine;
+
+        public void OnStateEnter() => ResetTimer();
+
+        public void Update()
+        {
+            timer -= Time.deltaTime;
+            if (timer <= 0)
+                stateMachine.ChangeState(OnePunchManStates.ROTATING);
+        }
+
+        public void OnStateExit() => timer = 0;
+
+        private void ResetTimer() => timer = Owner.Data.IdleTime;
+    }
+}
