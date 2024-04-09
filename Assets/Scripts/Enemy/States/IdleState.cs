@@ -1,3 +1,4 @@
+using Assets.Scripts.Enemy.OnePunchMan;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -8,10 +9,10 @@ namespace StatePattern.Enemy
     {
         public EnemyController Owner { get; set; }
 
-        private OnePunchManStateMachine stateMachine;
+        private IStateMachine stateMachine;
         private float timer;
 
-        public IdleState(OnePunchManStateMachine stateMachine) => this.stateMachine = stateMachine;
+        public IdleState(IStateMachine stateMachine) => this.stateMachine = stateMachine;
 
         public void OnStateEnter() => ResetTimer();
 

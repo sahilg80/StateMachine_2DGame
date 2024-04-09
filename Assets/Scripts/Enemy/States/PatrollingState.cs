@@ -27,7 +27,7 @@ namespace Assets.Scripts.Enemy.OnePunchMan
         public void Update()
         {
             if (ReachedDestination())
-                stateMachine.ChangeState(States.IDLE);
+                stateMachine.ChangeState(StatePattern.Enemy.States.IDLE);
         }
 
         public void OnStateExit() { }

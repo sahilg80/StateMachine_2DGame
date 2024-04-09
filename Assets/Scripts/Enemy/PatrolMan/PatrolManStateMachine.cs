@@ -1,15 +1,18 @@
+﻿
 using Assets.Scripts.Enemy.OnePunchMan;
+using Assets.Scripts.Enemy.OnePunchMan.States;
 using System.Collections.Generic;
+using UnityEngine;
 
 namespace StatePattern.Enemy
 {
-    public class OnePunchManStateMachine : IStateMachine
+    public class PatrolManStateMachine : IStateMachine
     {
-        private OnePunchManController Owner;
+        private PatrolManController Owner;
         private IState currentState;
         protected Dictionary<States, IState> States = new Dictionary<States, IState>();
 
-        public OnePunchManStateMachine(OnePunchManController Owner)
+        public PatrolManStateMachine(PatrolManController Owner)
         {
             this.Owner = Owner;
             CreateStates();
@@ -19,13 +22,14 @@ namespace StatePattern.Enemy
         private void CreateStates()
         {
             States.Add(Enemy.States.IDLE, new IdleState(this));
-            States.Add(Enemy.States.ROTATING, new RotatingState(this));
+            States.Add(Enemy.States.PATROLLING, new PatrollingState(this));
+            States.Add(Enemy.States.CHASING, new ChasingState(this));
             States.Add(Enemy.States.SHOOTING, new ShootingState(this));
         }
 
         private void SetOwner()
         {
-            foreach(IState state in States.Values)
+            foreach (IState state in States.Values)
             {
                 state.Owner = Owner;
             }
@@ -41,14 +45,5 @@ namespace StatePattern.Enemy
         }
 
         public void ChangeState(States newState) => ChangeState(States[newState]);
-    }
-
-    public enum States
-    {
-        IDLE,
-        ROTATING,
-        SHOOTING,
-        PATROLLING,
-        CHASING
     }
 }
