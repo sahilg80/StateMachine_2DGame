@@ -1,3 +1,4 @@
+using Assets.Scripts.Enemy.OnePunchMan;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -7,10 +8,10 @@ namespace StatePattern.Enemy
     public class RotatingState : IState
     {
         public EnemyController Owner { get; set; }
-        private OnePunchManStateMachine stateMachine;
+        private IStateMachine stateMachine;
         private float targetRotation;
 
-        public RotatingState(OnePunchManStateMachine stateMachine) => this.stateMachine = stateMachine;
+        public RotatingState(IStateMachine stateMachine) => this.stateMachine = stateMachine;
 
         public void OnStateEnter() => targetRotation = (Owner.Rotation.eulerAngles.y + 180) % 360;
 
