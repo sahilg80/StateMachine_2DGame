@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 705507994}
-  m_IndirectSpecularColor: {r: 0.17276844, g: 0.21589246, b: 0.2978263, a: 1}
+  m_IndirectSpecularColor: {r: 0.17276807, g: 0.21589197, b: 0.29782572, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -799,6 +799,7 @@ MonoBehaviour:
   levelScriptableObjects:
   - {fileID: 11400000, guid: bada358cc71564c49831629438d87724, type: 2}
   - {fileID: 11400000, guid: 3ceefc333a7c35a4d8743f64f88754db, type: 2}
+  - {fileID: 11400000, guid: 7c34e5ad108e2fe42992e2b182ef0931, type: 2}
   sfxSource: {fileID: 629913882}
   bgMusicSource: {fileID: 973737936}
 --- !u!4 &2053379264

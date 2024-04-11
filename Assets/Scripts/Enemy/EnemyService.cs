@@ -37,7 +37,7 @@ namespace StatePattern.Enemy
             foreach(EnemyScriptableObject enemySO in enemyDataForLevel)
             {
                 EnemyController enemy = CreateEnemy(enemySO);
-                activeEnemies.Add(enemy);
+                AddEnemy(enemy);
             }
 
             SetEnemyCount();
@@ -95,6 +95,8 @@ namespace StatePattern.Enemy
                 enemy.SetState(EnemyState.DEACTIVE);
             }
         }
+
+        public void AddEnemy(EnemyController enemy) => activeEnemies.Add(enemy);
 
         private bool PlayerWon() => activeEnemies.Count == 0;
     }

@@ -1,4 +1,5 @@
-﻿using StatePattern.Enemy;
+﻿using Assets.Scripts.Enemy.States;
+using StatePattern.Enemy;
 using StatePattern.StateMachine;
 using System;
 using System.Collections.Generic;
@@ -23,6 +24,9 @@ namespace Assets.Scripts.Enemy.Robot
             States.Add(StatePattern.StateMachine.States.PATROLLING, new PatrollingState<RobotController>(this));
             States.Add(StatePattern.StateMachine.States.CHASING, new ChasingState<RobotController>(this));
             States.Add(StatePattern.StateMachine.States.SHOOTING, new ShootingState<RobotController>(this));
+
+            States.Add(StatePattern.StateMachine.States.TELEPORTING, new TeleportingState<RobotController>(this));
+            States.Add(StatePattern.StateMachine.States.CLONING, new CloningState<RobotController>(this));
         }
     }
 }
