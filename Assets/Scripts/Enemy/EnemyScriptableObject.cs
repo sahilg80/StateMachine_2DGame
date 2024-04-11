@@ -17,6 +17,7 @@ namespace StatePattern.Enemy
         public int MaximumHealth;
         public float RangeRadius;
         public float TeleportingRadius;
+        public int CloneCount;
 
         public float IdleTime;
         public float RotationSpeed;

@@ -1,4 +1,5 @@
 using Assets.Scripts.Enemy.HitMan;
+using Assets.Scripts.Enemy.Robot;
 using StatePattern.Level;
 using StatePattern.Main;
 using StatePattern.Sound;
@@ -63,6 +64,9 @@ namespace StatePattern.Enemy
                     break;
                 case EnemyType.PatrolMan:
                     enemy = new PatrolManController(enemyScriptableObject);
+                    break;
+                case EnemyType.Robot:
+                    enemy = new RobotController(enemyScriptableObject);
                     break;
                 default:
                     enemy = new EnemyController(enemyScriptableObject);
