@@ -1,3 +1,4 @@
+using Assets.Scripts.Enemy.HitMan;
 using StatePattern.Level;
 using StatePattern.Main;
 using StatePattern.Sound;
@@ -56,6 +57,9 @@ namespace StatePattern.Enemy
             {
                 case EnemyType.OnePunchMan:
                     enemy = new OnePunchManController(enemyScriptableObject);
+                    break;
+                case EnemyType.Hitman:
+                    enemy = new HitManController(enemyScriptableObject);
                     break;
                 case EnemyType.PatrolMan:
                     enemy = new PatrolManController(enemyScriptableObject);
